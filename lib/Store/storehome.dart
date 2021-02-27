@@ -62,6 +62,7 @@ class _StoreHomeState extends State<StoreHome> {
     width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.purpleAccent[100],
         drawer: MyDrawer(),
         body: CustomScrollView(
           slivers: [
@@ -144,6 +145,15 @@ class _StoreHomeState extends State<StoreHome> {
             ),
             SliverPersistentHeader(
                 pinned: false, delegate: SearchBoxDelegate()),
+            SliverList(
+                delegate: SliverChildListDelegate([
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [RaisedButton(onPressed: null)],
+                ),
+              )
+            ])),
             StreamBuilder<QuerySnapshot>(
               stream: Firestore.instance
                   .collection("items")
@@ -182,237 +192,241 @@ Widget sourceInfo(ItemModel model, BuildContext context,
     {Color background, removeCartFunction}) {
   return Padding(
       padding: EdgeInsets.only(bottom: 8.0, left: 5.0, right: 5.0),
-      child: Material(
-          color: Colors.white,
+      child: Card(
+        color: Colors.white,
+        shadowColor: Colors.deepPurple,
+        elevation: 8.0,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+        child: InkWell(
+          onTap: () {
+            Route route = MaterialPageRoute(
+              builder: (c) => ProductPage(itemModel: model),
+            );
+            Navigator.push(context, route);
+          },
           borderRadius: BorderRadius.circular(25.0),
-          child: InkWell(
-            onTap: () {
-              Route route = MaterialPageRoute(
-                builder: (c) => ProductPage(itemModel: model),
-              );
-              Navigator.push(context, route);
-            },
-            borderRadius: BorderRadius.circular(25.0),
-            splashColor: Colors.purple[10],
-            child: Padding(
-              padding: EdgeInsets.all(6.0),
-              child: Container(
-                height: 185.0,
-                width: width,
-                child: Row(
-                  children: [
-                    Column(children: [
-                      Container(
-                        height: 140,
-                        width: 140,
-                        child: GridTile(
-                          child: Stack(
-                              alignment: Alignment.bottomCenter,
-                              children: <Widget>[
-                                Image(
-                                  image: new NetworkImage(model.thumbnailUrl),
-                                ),
-                              ]),
-                          footer: ListTile(
-                            trailing: IconButton(
-                              splashRadius: 5,
-                              splashColor: Colors.purpleAccent,
-                              icon: Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Icon(Icons.share),
+          splashColor: Colors.purple[10],
+          child: Padding(
+            padding: EdgeInsets.all(6.0),
+            child: Container(
+              height: 185.0,
+              width: width,
+              child: Row(
+                children: [
+                  Column(children: [
+                    Container(
+                      height: 140,
+                      width: 140,
+                      child: GridTile(
+                        child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: <Widget>[
+                              Image(
+                                image: new NetworkImage(model.thumbnailUrl),
                               ),
-                              color: Colors.purple,
-                              iconSize: 25,
-                              onPressed: () {
+                            ]),
+                        footer: ListTile(
+                          trailing: IconButton(
+                            splashRadius: 5,
+                            splashColor: Colors.purpleAccent,
+                            icon: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Icon(Icons.share),
+                            ),
+                            color: Colors.purple,
+                            iconSize: 25,
+                            onPressed: () {
 //                                  share(model.title,
 //                                      model.thumbnailUrl);
-                              },
-                            ),
+                            },
                           ),
                         ),
                       ),
-                      Container(
-                        child: Text(
-                          "Category: " + model.categ,
-                          style: TextStyle(
-                              color: Colors.pinkAccent,
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      Container(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              "By, " + model.sellerName,
-                              style: TextStyle(
-                                  color: Colors.pink,
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                    ]),
-                    SizedBox(
-                      width: 4.0,
                     ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    Container(
+                      child: Text(
+                        "Category: " + model.categ,
+                        style: TextStyle(
+                            color: Colors.pinkAccent,
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Container(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
                         children: [
-                          SizedBox(
-                            height: 15.0,
-                          ),
-                          Container(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    model.title,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14.0,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Container(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    model.shortInfo,
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Row(
+                          Text(
+                            "By, " + model.sellerName,
+                            style: TextStyle(
+                                color: Colors.pink,
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                  ]),
+                  SizedBox(
+                    width: 4.0,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 15.0,
+                        ),
+                        Container(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  color: Colors.purple,
+                              Expanded(
+                                child: Text(
+                                  model.title,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14.0,
+                                  ),
                                 ),
-                                alignment: Alignment.topLeft,
-                                width: 30.0,
-                                height: 30.0,
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        Container(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  model.shortInfo,
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: Colors.purple,
+                              ),
+                              alignment: Alignment.topLeft,
+                              width: 30.0,
+                              height: 30.0,
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "50",
+                                      style: TextStyle(
+                                          fontSize: 8.0,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      "off",
+                                      style: TextStyle(
+                                          fontSize: 8.0,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 7.0,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    top: 0.0,
+                                  ),
+                                  child: Row(
                                     children: [
                                       Text(
-                                        "50",
+                                        "₹" +
+                                            (model.price + model.price)
+                                                .toString(),
                                         style: TextStyle(
-                                            fontSize: 8.0,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
+                                            fontSize: 12.0,
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.normal,
+                                            decoration:
+                                                TextDecoration.lineThrough),
                                       ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    top: 2.0,
+                                  ),
+                                  child: Row(
+                                    children: [
                                       Text(
-                                        "off",
+                                        "₹" + (model.price).toString(),
                                         style: TextStyle(
-                                            fontSize: 8.0,
-                                            color: Colors.white,
+                                            fontSize: 20.0,
+                                            color: Colors.green,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 7.0,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: 0.0,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "₹" +
-                                              (model.price + model.price)
-                                                  .toString(),
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.normal,
-                                              decoration:
-                                                  TextDecoration.lineThrough),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: 2.0,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "₹" + (model.price).toString(),
-                                          style: TextStyle(
-                                              fontSize: 20.0,
-                                              color: Colors.green,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: removeCartFunction == null
-                                ? IconButton(
-                                    icon: Icon(Icons.shopping_basket_rounded),
-                                    color: Colors.purple,
-                                    onPressed: () {
-                                      checkItemInCart(model.shortInfo, context);
-                                    },
-                                  )
-                                : IconButton(
-                                    icon: Icon(Icons.delete_rounded),
-                                    color: Colors.purple,
-                                    onPressed: () {
-                                      removeCartFunction();
-                                    },
-                                  ),
-                          ),
-                        ],
-                      ),
+                              ],
+                            )
+                          ],
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: removeCartFunction == null
+                              ? IconButton(
+                                  icon: Icon(Icons.shopping_basket_rounded),
+                                  color: Colors.purple,
+                                  onPressed: () {
+                                    checkItemInCart(model.shortInfo, context);
+                                  },
+                                )
+                              : IconButton(
+                                  icon: Icon(Icons.delete_rounded),
+                                  color: Colors.purple,
+                                  onPressed: () {
+                                    removeCartFunction();
+                                  },
+                                ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          )));
+          ),
+        ),
+      ));
 }
 
 Widget card({Color primaryColor = Colors.redAccent, String imgPath}) {

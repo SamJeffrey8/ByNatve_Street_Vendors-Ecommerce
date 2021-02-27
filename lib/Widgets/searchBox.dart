@@ -15,7 +15,7 @@ class SearchBoxDelegate extends SliverPersistentHeaderDelegate {
         child: Container(
           decoration: new BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.purpleAccent, Colors.blue],
+              colors: [Colors.purpleAccent, Colors.purple],
               begin: Alignment.topLeft,
               end: Alignment(
                   0.8, 0.0), // 10% of the width, so there are ten blinds.

@@ -5,6 +5,7 @@ import 'package:e_shop/Counters/gdeedcounter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Authentication/authenication.dart';
@@ -20,7 +21,15 @@ import 'Store/storehome.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.deepPurple, // navigation bar color
+    statusBarColor: Colors.purple, // status bar color
+    statusBarBrightness: Brightness.dark, //status bar brigtness
+    statusBarIconBrightness: Brightness.light, //status barIcon Brightness
+    systemNavigationBarDividerColor:
+        Colors.greenAccent, //Navigation bar divider color
+    systemNavigationBarIconBrightness: Brightness.light, //navigation bar icon
+  ));
   TeleMed.auth = FirebaseAuth.instance;
   TeleMed.sharedPreferences = await SharedPreferences.getInstance();
   TeleMed.firestore = Firestore.instance;

@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:e_shop/Store/storehome.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ProductPage extends StatefulWidget {
@@ -24,6 +25,7 @@ class _ProductPageState extends State<ProductPage> {
     Size screenSize = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.purpleAccent[100],
         appBar: AppBar(
           centerTitle: true,
           flexibleSpace: Container(
@@ -39,7 +41,10 @@ class _ProductPageState extends State<ProductPage> {
               ),
             ),
           ),
-          title: Text("ByNative"),
+          title: Text("ByNative",
+              style: GoogleFonts.lato(
+                textStyle: TextStyle(color: Colors.white, letterSpacing: .5),
+              )),
           actions: [
             Stack(
               children: [
@@ -108,7 +113,10 @@ class _ProductPageState extends State<ProductPage> {
               padding: EdgeInsets.fromLTRB(15.0, 10.0, 1.0, 0.0),
               child: Text(
                 widget.itemModel.title,
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple[600]),
               ),
             ),
             Padding(
@@ -154,7 +162,7 @@ class _ProductPageState extends State<ProductPage> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
-                      color: Colors.green)),
+                      color: Colors.greenAccent)),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 0.0, left: 15),
@@ -164,25 +172,55 @@ class _ProductPageState extends State<ProductPage> {
                         .toString(),
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                    fontSize: 18,
                     decoration: TextDecoration.lineThrough,
                     color: Colors.red),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 1.0, left: 15),
+              padding: const EdgeInsets.only(top: 8.0, left: 15, bottom: 8.0),
               child: Text("Category: " + widget.itemModel.categ,
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0)),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15.0,
+                      color: Colors.deepPurple)),
             ),
             ListTile(
-              title: Text("Product Details: "),
-              subtitle: Text(widget.itemModel.longDescription),
+              title: Text(
+                "Product Details: ",
+                style: TextStyle(
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.0,
+                ),
+              ),
+              subtitle: Text(
+                widget.itemModel.longDescription,
+                style: TextStyle(
+                  color: Colors.purple,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.0,
+                ),
+              ),
               visualDensity: VisualDensity(horizontal: 0, vertical: -4),
             ),
             ListTile(
-              title: Text("Location: "),
-              subtitle: Text(widget.itemModel.shortInfo),
+              title: Text(
+                "Location: ",
+                style: TextStyle(
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.0,
+                ),
+              ),
+              subtitle: Text(
+                widget.itemModel.shortInfo,
+                style: TextStyle(
+                  color: Colors.purple,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.0,
+                ),
+              ),
               visualDensity: VisualDensity(horizontal: 0, vertical: -4),
             ),
             Padding(

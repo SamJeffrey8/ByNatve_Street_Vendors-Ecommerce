@@ -121,8 +121,13 @@ class _SearchProductState extends State<SearchProduct> {
                                 return sourceInfo(model, context);
                               },
                             )
-                          : Container(
-                              child: Text("Nothing found"),
+                          : Center(
+                              child: Container(
+                                child: Text(
+                                  "Nothing found 😅, so try searching differently 😉",
+                                  style: TextStyle(color: Colors.purple),
+                                ),
+                              ),
                             );
                     },
                   ),
@@ -142,7 +147,7 @@ class _SearchProductState extends State<SearchProduct> {
       height: 60.0,
       decoration: new BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.purpleAccent, Colors.blue],
+          colors: [Colors.purpleAccent, Colors.purple],
           begin: Alignment.topLeft,
           end:
               Alignment(0.8, 0.0), // 10% of the width, so there are ten blinds.
@@ -151,9 +156,10 @@ class _SearchProductState extends State<SearchProduct> {
         ),
       ),
       child: Container(
-        width: MediaQuery.of(context).size.width - 20.0,
+        margin: EdgeInsets.only(left: 10.0, right: 10.0),
+        width: MediaQuery.of(context).size.width,
         height: 40.0,
-        decoration: BoxDecoration(
+        decoration: new BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(6.0),
         ),
